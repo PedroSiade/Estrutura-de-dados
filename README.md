@@ -1,2 +1,3 @@
 # Estrutura-de-dados
-Projetos em C, C++.
+Alguns trabalho e projetos realizados em c, c++ que foram realizadas durante algumas matérias na faculdade.
+
