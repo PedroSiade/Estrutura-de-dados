@@ -1,0 +1,57 @@
+#include <stdio.h>
+
+void particao(int *v, int esquerda, int direita, int *i, int *j);
+void ordena(int *v, int esquerda, int direita);
+void quickSort(int *v, int tamanho);
+void exibe(int vet[], int tamanho);
+
+int main() {
+    int v[10]={3,0, 1, 8, 7, 2, 5, 4, 9, 6};
+    printf("\n\nVetor de teste:\nV1[10]={3,0, 1, 8, 7, 2, 5, 4, 9, 6}\n");
+    quickSort(v, 10);
+    printf("\n\n----Vetor ordenado----");
+    exibe(v, 10);
+    return 0;
+}
+
+void particao(int *v, int esquerda, int direita, int *i, int *j){//É passado o ponteiro de i e j a fim de manter esses valores após o termino da função
+    int aux, x;
+    *i = esquerda;
+    *j = direita;
+    x=v[*i];
+    while((*i) < (*j)) {//Após o i for igual a j, significa que aquele elemento esta na posição correta, dessa forma terminando a partição;
+        while(x < v[*j]) (*j)--;//Percorre a extremidade da direita até encontrar um valor que seja maior que o pivo, realizando a troca entre eles;
+        if(x > v[*j]){
+            aux = v[*j];
+            v[*j] = x;
+            v[*i] = aux;
+        }
+
+        while(x > v[*i]) (*i)++;//Percorre a extremidade da esquerda até encontrar um valor que seja menor que o pivo, realizando a troca entre eles;
+        if(x < v[*i]){
+            aux = v[*i];
+            v[*i] = x;
+            v[*j] = aux;
+        }
+    }
+}
+
+void ordena(int *v, int esquerda, int direita){//Utiliza recursão, sempre dividindo a chamada em dois casos a fim de ordenarar o vetor;
+    int i, j;
+    particao(v, esquerda, direita, &i, &j);
+    if(esquerda <= j-1) ordena(v, esquerda, j - 1);
+    if(i + 1 <= direita) ordena(v, i + 1, direita);
+}
+
+void quickSort(int *v, int tamanho){
+    ordena(v, 0, tamanho-1);
+}
+
+void exibe(int vet[], int tamanho)
+{ // exibe o vetor
+    int i;
+    for (i = 0; i <= tamanho - 1; i++)
+    {
+        printf("\nElemento da posicao %d: %d", i, vet[i]);
+    }
+}
